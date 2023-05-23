@@ -62,8 +62,8 @@ const App = () => {
     try {
       const res = await axios.delete(`${API_URL}/images/${id}`);
 
-      if (res?.data.deleted_id) {
-        const deletedImage = images.find((image) => image.id === id);
+      if (res.data?.deleted_id) {
+        const deletedImage = images.find((i) => i.id === id);
         toast.warn(`Image ${deletedImage.title.toUpperCase()} was deleted`);
 
         setImages(images.filter((image) => image.id !== id));

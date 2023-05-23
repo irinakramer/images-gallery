@@ -55,6 +55,7 @@ def images():
 @app.route("/images/<image_id>", methods=["DELETE"])
 def image(image_id):
     if request.method == "DELETE":
+        # delete image from db
         result = images_collection.delete_one({'_id': image_id})
         # print("result:", result.deleted_count)
         if not result:
