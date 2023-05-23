@@ -57,7 +57,6 @@ const App = () => {
     setWord('');
   };
 
-  // TODO - enable delete even if image not saved in db, from state only
   const handleDeleteImage = async (id) => {
     try {
       const res = await axios.delete(`${API_URL}/images/${id}`);
@@ -72,6 +71,10 @@ const App = () => {
       console.log(error);
       toast.error(error.message);
     }
+  };
+
+  const handleRemoveImage = (id) => {
+    setImages(images.filter((image) => image.id !== id));
   };
 
   const handleSaveImage = async (id) => {
@@ -115,6 +118,7 @@ const App = () => {
                     <ImageCard
                       image={image}
                       deleteImage={handleDeleteImage}
+                      removeImage={handleRemoveImage}
                       saveImage={handleSaveImage}
                     />
                   </Col>

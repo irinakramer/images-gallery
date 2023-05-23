@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button, Nav } from 'react-bootstrap';
 
-const ImageCard = ({ image, deleteImage, saveImage }) => {
+const ImageCard = ({ image, deleteImage, removeImage, saveImage }) => {
   const authorName = image.user?.name;
   const authorPortfolioUrl = image.user?.portfolio_url;
 
@@ -11,19 +11,29 @@ const ImageCard = ({ image, deleteImage, saveImage }) => {
       <Card.Body>
         <Card.Title>{image.title?.toUpperCase()}</Card.Title>
         <Card.Text>{image.description || image.alt_description}</Card.Text>
-        <Button
-          variant="primary"
-          style={{ marginRight: '1rem' }}
-          onClick={() => {
-            deleteImage(image.id);
-          }}
-        >
-          Delete
-        </Button>
-        {!image.saved && (
-          <Button variant="secondary" onClick={() => saveImage(image.id)}>
-            Save
+        {image.saved && (
+          <Button
+            variant="primary"
+            onClick={() => {
+              deleteImage(image.id);
+            }}
+          >
+            Delete
           </Button>
+        )}
+        {!image.saved && (
+          <>
+            <Button
+              variant="secondary"
+              className="me-2"
+              onClick={() => saveImage(image.id)}
+            >
+              Save
+            </Button>
+            <Button variant="light" onClick={() => removeImage(image.id)}>
+              Remove
+            </Button>
+          </>
         )}
       </Card.Body>
       <Card.Footer className="text-muted text-center">
